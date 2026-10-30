@@ -1,86 +1,269 @@
-/* Configuração geral do texto e página */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f8f9fa;
-      padding: 20px;
-      color: #333;
-    }
+body {
+    font-family: system-ui, sans-serif;
+    max-width: 920px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
 
-    h1, h3 {
-        text-align: center;
-    }
+h1, h3 {
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #222;
+}
 
+.tabela-bonita {
+    border-collapse: collapse;
+    margin-top: 1rem;
+    width: 100%;
+}
 
-
-    /* Estilização da Tabela */
-    .tabela-bonita {
-      width: 100%;
-      max-width: 500px;
-      margin: 20px auto;
-      border-collapse: collapse;
-      background-color: #ffffff;
-      border-radius: 8px;
-      overflow: hidden; /* Garante que os cantos arredondados funcionem */
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra suave no fundo */
-    }
-
-    /* Cabeçalho de Cima (Top) */
-    .tabela-bonita thead tr {
-      background-color: #fff; /* Roxo moderno */
-      color: #000000;
-      text-align: left;
-    }
-
-    /* Células de Cabeçalho (Cima e Lateral) */
-    .tabela-bonita th {
-      padding: 14px 18px;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 0.5px;
-    }
-
-    /* Cabeçalho Lateral (Primeira coluna de cada linha) */
-    .tabela-bonita tbody th {
-      background-color: #f1f5f9; /* Cinza azulado bem claro */
-      color: #c8ccd2;
-      border-right: 2px solid #3f4144;
-      text-align: left;
-      width: 25%; /* Ajusta a largura da coluna lateral */
-    }
-
-    /* Células de Dados (Valores) */
+    .tabela-bonita th,
     .tabela-bonita td {
-      padding: 14px 18px;
-      color: #475569;
-      font-size: 14px;
-      border-bottom: 1px solid #f1f5f9; /* Linhas divisórias sutis */
-    }
-
-    /* Efeito de destaque ao passar o mouse (Hover) */
-    .tabela-bonita tbody tr:hover {
-      background-color: #2a5f94;
-    }
-
-    /* Remove a borda da última linha para acabamento limpo */
-    .tabela-bonita tbody tr:last-child td,
-    .tabela-bonita tbody tr:last-child th {
-      border-bottom: none;
-    }
-
-    /* Estilização dos Inputs dentro da tabela */
-    .frase-caixa {
-      width: 400px;
-      padding: 8px 12px;
-      box-sizing: border-box; /* Garante que o padding não passe do tamanho da célula */
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      font-family: inherit;
-      font-size: 14px;
-      color: #334155;
-      background-color: #fff;
-      transition: all 0.2s ease;
-    }
-
-    .input-tabela {
+        border: 1px solid #ccc;
+        padding: 0.5rem 1rem;
         text-align: center;
+    }
+
+    /* estado atual = só a célula da primeira coluna */
+    .tabela-bonita tr[data-estado] th.estado-ativo {
+        background: #fff3bf; /* amarelo */
+        color: #7a5c00;
+        font-weight: 700;
+        outline: 2px solid #f0b400;
+        transition: background 0.15s ease;
+    }
+
+    /* quando o estado atual é final e a palavra foi aceita */
+    .tabela-bonita tr[data-estado] th.estado-ativo.aceito {
+        background: #d3f9d8;
+        outline-color: #2f9e44;
+    }
+
+    /* quando o estado atual é não-final e a palavra foi rejeitada */
+    .tabela-bonita tr[data-estado] th.estado-ativo.rejeitado {
+        background: #ffe3e3;
+        outline-color: #e03131;
+    }
+
+    /* célula da última transição realizada (em andamento = azul) */
+    .tabela-bonita td.celula-ativa {
+        background: #74c0fc; /* azul */
+        color: #0b2e5c;
+        font-weight: 700;
+        transition: background 0.15s ease;
+    }
+
+    /* transição aceita (só depois do espaço) */
+    .tabela-bonita td.celula-ativa.aceita {
+        background: #69db7c; /* verde */
+        color: #0b3d18;
+    }
+
+    /* transição rejeitada (só depois do espaço) */
+    .tabela-bonita td.celula-ativa.celula-rejeitada {
+        background: #ff8787; /* vermelho */
+        color: #5c0a0a;
+    }
+
+/* ---------- legenda ---------- */
+.legenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0.75rem 0 0.25rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.legenda-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* quadradinho colorido */
+.legenda-cor {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.legenda-amarelo {
+    background: #fff3bf;
+    outline: 1px solid #f0b400;
+}
+
+.legenda-azul {
+    background: #74c0fc;
+}
+
+.legenda-verde {
+    background: #69db7c;
+}
+
+.legenda-vermelho {
+    background: #ff8787;
+}
+
+/* ---------- layout em 2 colunas ---------- */
+.layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.principal {
+    min-width: 0; /* permite que filhos (tabela, textos) quebrem dentro da coluna */
+}
+
+.lateral {
+    position: sticky;
+    top: 1rem; /* acompanha o scroll, fica sempre visível */
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+}
+
+/* empilha em telas estreitas */
+@media (max-width: 720px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .lateral {
+        position: static;
+        max-height: none;
+        overflow: visible;
+    }
+}
+
+/* ---------- histórico (agora vertical dentro da coluna) ---------- */
+.historico {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.historico-coluna h4 {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.historico-lista {
+    list-style: none;
+    margin: 0;
+    padding: 0.4rem;
+    min-height: 3rem;
+    max-height: 220px; /* limita a altura de cada lista */
+    overflow-y: auto; /* rola quando enche */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: ui-monospace, monospace;
+    font-size: 0.9rem;
+    background: #fafafa;
+}
+
+    .historico-lista li {
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        word-break: break-all;
+        overflow-wrap: anywhere;
+    }
+
+        .historico-lista li + li {
+            border-top: 1px dashed #e5e5e5;
+        }
+
+#lista-aceitas li {
+    color: #2f9e44;
+}
+
+#lista-rejeitadas li {
+    color: #e03131;
+}
+
+.historico-lista:empty::before {
+    content: "(vazio)";
+    color: #999;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+.frase-caixa {
+    font-size: 1.2rem;
+    padding: 0.4rem 0.6rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.status {
+    margin: 0.8rem 0;
+    font-family: ui-monospace, monospace;
+}
+
+.resultado {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    min-height: 1.5em;
+    text-align: center;
+}
+
+.resultado.aceita {
+    color: #2f9e44;
+}
+
+.resultado.rejeita {
+    color: #e03131;
+}
+
+/* ---------- quebra de palavras longas ---------- */
+
+/* palavra em análise (span dentro do <p id="status">) */
+#palavra-atual {
+    word-break: break-all; /* quebra em qualquer ponto */
+    overflow-wrap: anywhere;
+}
+
+/* o <p> de status em si, para o caso do estado+palavra juntos estourarem */
+#status {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* mensagem de resultado */
+#resultado {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+
+/* itens do histórico */
+.historico-lista li {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+
+/* células da tabela (se algum td/th ficar gigante no futuro) */
+.tabela-bonita td,
+.tabela-bonita th {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+
+/* ---------- rodapé ---------- */
+.rodape {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e5e5;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+    .rodape p {
+        margin: 0;
     }

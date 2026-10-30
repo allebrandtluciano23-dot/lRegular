@@ -5,53 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linguagem Regular</title>
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
-    
-    <h1>Reconhecedor</h1>
-    <h3>L(G) = {x | x ∈ (0, 1)⁺ e se x começa com 0 então o número de 0’s é par, senão o número
-de 0’s é ímpar}</h2>
-    
-    <div class="input-tabela">
-        <label class="frase" for="frase">Frase:</label>
-        <input class="frase-caixa" type="text" id="frase" placeholder="">
+
+    <h1>Analisador Léxico</h1>
+    <h3>
+        L(G) = {x | x ∈ (0, 1)⁺ e se x começa com 0 então o número de 0’s é par, senão o número
+        de 0’s é ímpar}
+    </h3>
+
+    <div class="layout">
+        <div class="principal">
+            <div class="input-tabela">
+                <label class="frase" for="frase">Frase:</label>
+                <input class="frase-caixa" type="text" id="frase"
+                       placeholder="Digite 0s e 1s. Espaço verifica. Backspace reinicia."
+                       autocomplete="off">
+            </div>
+
+            <p id="status" class="status">
+                Estado atual: <strong id="estado-atual">q0</strong> ·
+                Palavra em análise: "<span id="palavra-atual"></span>"
+            </p>
+
+            <table class="tabela-bonita" id="tabela-afd">
+                <thead>
+                    <tr><th>δ</th><th>0</th><th>1</th></tr>
+                </thead>
+                <tbody>
+                    <tr data-estado="q0"><th>q0</th><td id="q0-0">q1</td><td id="q0-1">q3</td></tr>
+                    <tr data-estado="q1"><th>q1</th><td id="q1-0">q2</td><td id="q1-1">q1</td></tr>
+                    <tr data-estado="q2"><th>q2 *</th><td id="q2-0">q1</td><td id="q2-1">q2</td></tr>
+                    <tr data-estado="q3"><th>q3</th><td id="q3-0">q4</td><td id="q3-1">q3</td></tr>
+                    <tr data-estado="q4"><th>q4 *</th><td id="q4-0">q3</td><td id="q4-1">q4</td></tr>
+                </tbody>
+            </table>
+
+            <div class="legenda">
+                <span class="legenda-item">
+                    <span class="legenda-cor legenda-amarelo"></span> Estado atual
+                </span>
+                <span class="legenda-item">
+                    <span class="legenda-cor legenda-azul"></span> Última transição
+                </span>
+                <span class="legenda-item">
+                    <span class="legenda-cor legenda-verde"></span> Aceita
+                </span>
+                <span class="legenda-item">
+                    <span class="legenda-cor legenda-vermelho"></span> Rejeitada
+                </span>
+            </div>
+
+            <div id="resultado" class="resultado"></div>
+        </div>
+
+        <aside class="lateral">
+            <div class="historico">
+                <div class="historico-coluna">
+                    <h4>✅ Aceitas</h4>
+                    <ul id="lista-aceitas" class="historico-lista"></ul>
+                </div>
+                <div class="historico-coluna">
+                    <h4>❌ Rejeitadas</h4>
+                    <ul id="lista-rejeitadas" class="historico-lista"></ul>
+                </div>
+            </div>
+        </aside>
     </div>
-    
-    <table  class="tabela-bonita" >
-        <thead>
-            <tr>
-                <th></th>
-                <th>0</th>
-                <th>1</th>
-                
-            </tr>
-            <tr>
-                <th>q0</th>
-                <td> * </td>
-                <td> * </td>
-            </tr>
-            <tr>
-                <th>q1</th>
-                <td> * </td>
-                <td> * </td>
-            </tr>
-               <tr>
-                <th>q2</th>
-                <td> * </td>
-                <td> * </td>
-            </tr>
-               <tr>
-                <th>q3</th>
-                <td> * </td>
-                <td> * </td>
-            </tr>
-               <tr>
-                <th>q4</th>
-                <td> * </td>
-                <td> * </td>
-            </tr>
-        </thead>
-    </table>
+
+    <footer class="rodape">
+        <p>Luciano Allebrandt &amp; Ruan Saugo</p>
+    </footer>
+
+    <script src="js/automato.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
