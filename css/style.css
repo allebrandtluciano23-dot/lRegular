@@ -1,0 +1,86 @@
+/* Configuração geral do texto e página */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1, h3 {
+        text-align: center;
+    }
+
+
+
+    /* Estilização da Tabela */
+    .tabela-bonita {
+      width: 100%;
+      max-width: 500px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden; /* Garante que os cantos arredondados funcionem */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra suave no fundo */
+    }
+
+    /* Cabeçalho de Cima (Top) */
+    .tabela-bonita thead tr {
+      background-color: #fff; /* Roxo moderno */
+      color: #000000;
+      text-align: left;
+    }
+
+    /* Células de Cabeçalho (Cima e Lateral) */
+    .tabela-bonita th {
+      padding: 14px 18px;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Cabeçalho Lateral (Primeira coluna de cada linha) */
+    .tabela-bonita tbody th {
+      background-color: #f1f5f9; /* Cinza azulado bem claro */
+      color: #c8ccd2;
+      border-right: 2px solid #3f4144;
+      text-align: left;
+      width: 25%; /* Ajusta a largura da coluna lateral */
+    }
+
+    /* Células de Dados (Valores) */
+    .tabela-bonita td {
+      padding: 14px 18px;
+      color: #475569;
+      font-size: 14px;
+      border-bottom: 1px solid #f1f5f9; /* Linhas divisórias sutis */
+    }
+
+    /* Efeito de destaque ao passar o mouse (Hover) */
+    .tabela-bonita tbody tr:hover {
+      background-color: #2a5f94;
+    }
+
+    /* Remove a borda da última linha para acabamento limpo */
+    .tabela-bonita tbody tr:last-child td,
+    .tabela-bonita tbody tr:last-child th {
+      border-bottom: none;
+    }
+
+    /* Estilização dos Inputs dentro da tabela */
+    .frase-caixa {
+      width: 400px;
+      padding: 8px 12px;
+      box-sizing: border-box; /* Garante que o padding não passe do tamanho da célula */
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 14px;
+      color: #334155;
+      background-color: #fff;
+      transition: all 0.2s ease;
+    }
+
+    .input-tabela {
+        text-align: center;
+    }
